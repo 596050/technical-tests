@@ -38,8 +38,6 @@ export const PaginatedEstablishmentsTable = () => {
 
   const filtered = handleFilterEstablishments(establishments);
 
-  console.log('filtered', filtered);
-
   return (
     <div style={tableStyle}>
       <h2>Food Hygiene Ratings</h2>
@@ -58,9 +56,9 @@ export const PaginatedEstablishmentsTable = () => {
       />
       <EstablishmentsTableNavigation
         pageNumber={pageNumber}
-        pageCount={pageCount}
         onPreviousPage={handlePreviousPage}
         onNextPage={handleNextPage}
+        canGetNextPage={!isLoading && pageNumber < pageCount}
       />
     </div>
   );

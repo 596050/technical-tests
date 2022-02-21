@@ -4,6 +4,10 @@ const labelStyle = {
   paddingRight: '10px',
 };
 
+const selectStyle = {
+  height: '25px',
+};
+
 export const EstablishmentsFilter = ({
   onChange,
   options,
@@ -22,6 +26,7 @@ export const EstablishmentsFilter = ({
         onChange={onChange}
         defaultValue={defaultValue}
         disabled={options.length <= 1 || isLoading}
+        style={selectStyle}
       >
         {options?.map(option => (
           <option key={option.value} value={option.value}>

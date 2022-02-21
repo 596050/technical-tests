@@ -21,6 +21,7 @@ export const EstablishmentsTableRow = ({ establishment }) => {
       style={{
         cursor: 'pointer',
       }}
+      className="establishments-table-row"
       onClick={handleClick}
     >
       <td style={tableCellStyle}>{establishment.BusinessName}</td>
