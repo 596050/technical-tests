@@ -33,8 +33,8 @@ export const useEstablishmentsFilter = ({
         establishments,
         dedupeKey: filterOn,
         transformFn: item => ({
-          value: item.BusinessType,
-          label: item.BusinessType,
+          value: item[filterOn],
+          label: item[filterOn],
         }),
       });
 

@@ -22,6 +22,7 @@ export const PaginatedEstablishmentsTable = () => {
   const { error, establishments, isLoading } = useEstablishments({
     pageNumber,
   });
+
   const { handleFilterChange, options, handleFilterEstablishments } =
     useEstablishmentsFilter({
       establishments,

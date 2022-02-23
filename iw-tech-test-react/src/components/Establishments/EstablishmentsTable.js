@@ -28,7 +28,7 @@ export const EstablishmentsTable = memo(
     const tableRows = isLoading ? (
       <TablePlaceholder />
     ) : (
-      establishments?.map((establishment, index) => {
+      establishments?.map(establishment => {
         return (
           <EstablishmentsTableRow
             key={establishment.FHRSID}
@@ -41,7 +41,7 @@ export const EstablishmentsTable = memo(
     if (error) return <div>Error: {error}</div>;
     return (
       <table>
-        <tbody>
+        <tbody data-testid="table-body">
           <tr>
             <th style={headerStyle}>Business Name</th>
             <th style={headerStyle}>Rating Value</th>

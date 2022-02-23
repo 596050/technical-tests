@@ -1,0 +1,142 @@
+[
+  {
+    "FHRSID": 1292652,
+    "LocalAuthorityBusinessID": "20/03957/FOOD",
+    "BusinessName": "-",
+    "BusinessType": "Other catering premises",
+    "RatingValue": "AwaitingInspection",
+    "RatingDate": "1901-01-01T00:00:00",
+    "links": [
+      {
+        "rel": "self",
+        "href": "http://api.ratings.food.gov.uk/establishments/1292652"
+      }
+    ]
+  },
+  {
+    "FHRSID": 1466637,
+    "LocalAuthorityBusinessID": "R115D335BH/2",
+    "BusinessName": "!NOSH!",
+    "BusinessType": "Takeaway/sandwich shop",
+    "RatingValue": "Awaiting Inspection",
+    "RatingDate": "2022-02-07T00:00:00",
+    "links": [
+      {
+        "rel": "self",
+        "href": "http://api.ratings.food.gov.uk/establishments/1466637"
+      }
+    ]
+  },
+  {
+    "FHRSID": 1385636,
+    "LocalAuthorityBusinessID": "19/96636/RBK",
+    "BusinessName": "!Vegan! Republic",
+    "BusinessType": "Mobile caterer",
+    "RatingValue": "5",
+    "RatingDate": "2019-05-30T00:00:00",
+    "links": [
+      {
+        "rel": "self",
+        "href": "http://api.ratings.food.gov.uk/establishments/1385636"
+      }
+    ]
+  },
+  {
+    "FHRSID": 1455216,
+    "LocalAuthorityBusinessID": "22/00006/COMM",
+    "BusinessName": "\"All Things Nice\"",
+    "BusinessType": "Manufacturers/packers",
+    "RatingValue": "Pass",
+    "RatingDate": "2022-01-27T00:00:00",
+    "links": [
+      {
+        "rel": "self",
+        "href": "http://api.ratings.food.gov.uk/establishments/1455216"
+      }
+    ]
+  },
+  {
+    "FHRSID": 134047,
+    "LocalAuthorityBusinessID": "67154",
+    "BusinessName": "\"Buttylicious\"",
+    "BusinessType": "Takeaway/sandwich shop",
+    "RatingValue": "5",
+    "RatingDate": "2019-02-12T00:00:00",
+    "links": [
+      {
+        "rel": "self",
+        "href": "http://api.ratings.food.gov.uk/establishments/134047"
+      }
+    ]
+  },
+  {
+    "FHRSID": 1006980,
+    "LocalAuthorityBusinessID": "17/00139/COM",
+    "BusinessName": "\"Choccy Heaven\" & Tipples",
+    "BusinessType": "Restaurant/Cafe/Canteen",
+    "RatingValue": "5",
+    "RatingDate": "2021-02-18T00:00:00",
+    "links": [
+      {
+        "rel": "self",
+        "href": "http://api.ratings.food.gov.uk/establishments/1006980"
+      }
+    ]
+  },
+  {
+    "FHRSID": 616044,
+    "LocalAuthorityBusinessID": "86029",
+    "BusinessName": "\"Dolly\"",
+    "BusinessType": "Mobile caterer",
+    "RatingValue": "5",
+    "RatingDate": "2017-01-11T00:00:00",
+    "links": [
+      {
+        "rel": "self",
+        "href": "http://api.ratings.food.gov.uk/establishments/616044"
+      }
+    ]
+  },
+  {
+    "FHRSID": 648400,
+    "LocalAuthorityBusinessID": "P041542",
+    "BusinessName": "\"Five A Day\"",
+    "BusinessType": "Hospitals/Childcare/Caring Premises",
+    "RatingValue": "Exempt",
+    "RatingDate": "2020-01-29T00:00:00",
+    "links": [
+      {
+        "rel": "self",
+        "href": "http://api.ratings.food.gov.uk/establishments/648400"
+      }
+    ]
+  },
+  {
+    "FHRSID": 612977,
+    "LocalAuthorityBusinessID": "C02GNL98TE/1",
+    "BusinessName": "\"Functions \"\"R\"\" Us\"",
+    "BusinessType": "Other catering premises",
+    "RatingValue": "Pass",
+    "RatingDate": "2017-05-19T00:00:00",
+    "links": [
+      {
+        "rel": "self",
+        "href": "http://api.ratings.food.gov.uk/establishments/612977"
+      }
+    ]
+  },
+  {
+    "FHRSID": 1065619,
+    "LocalAuthorityBusinessID": "36339",
+    "BusinessName": "\"God Save the Bean\" Coffee Company",
+    "BusinessType": "Mobile caterer",
+    "RatingValue": "5",
+    "RatingDate": "2018-08-30T00:00:00",
+    "links": [
+      {
+        "rel": "self",
+        "href": "http://api.ratings.food.gov.uk/establishments/1065619"
+      }
+    ]
+  }
+]

@@ -22,6 +22,7 @@ export const EstablishmentsFilter = ({
       </label>
       <select
         id="establishments-filter"
+        data-testid="establishments-filter"
         name={name}
         onChange={onChange}
         defaultValue={defaultValue}
@@ -29,7 +30,11 @@ export const EstablishmentsFilter = ({
         style={selectStyle}
       >
         {options?.map(option => (
-          <option key={option.value} value={option.value}>
+          <option
+            key={option.value}
+            value={option.value}
+            data-testid="establishments-filter-option"
+          >
             {option.label}
           </option>
         ))}

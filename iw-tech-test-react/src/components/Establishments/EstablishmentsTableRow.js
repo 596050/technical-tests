@@ -23,6 +23,7 @@ export const EstablishmentsTableRow = ({ establishment }) => {
       }}
       className="establishments-table-row"
       onClick={handleClick}
+      data-testid="establishments-table-row"
     >
       <td style={tableCellStyle}>{establishment.BusinessName}</td>
       <td style={tableCellStyle}>{establishment.RatingValue}</td>
