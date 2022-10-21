@@ -28,7 +28,7 @@ describe("useCalendar", () => {
       },
     ],
     [null, {}],
-  ])("should call with %p and return %o", (input, expected) => {
+  ])("should call with %s and return %o", (input, expected) => {
     const { result } = renderHook(() =>
       useCalendar({
         target: input,

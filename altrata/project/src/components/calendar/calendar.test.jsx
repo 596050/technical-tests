@@ -3,18 +3,42 @@ import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 import { Calendar } from "./calendar";
 
-describe("loads and displays greeting", () => {
-  it.only("", async () => {
+describe("Calendar", () => {
+  it("Correct element is highlighted", async () => {
+    const date = new Date();
     // ARRANGE
-    render(<Calendar date={new Date()} />);
-    console.log("screen", await screen.findAllByTestId("Calendar"));
-    screen.findAllByTestId("Calendar");
-    // // ACT
-    // await userEvent.click(screen.getByText("Load Greeting"));
-    // await screen.findByRole("heading");
-
-    // // ASSERT
-    // expect(screen.getByRole("heading")).toHaveTextContent("hello there");
-    // expect(screen.getByRole("button")).toBeDisabled();
+    render(<Calendar date={date} />);
+    // ACT
+    const element = await screen.findByTestId("highlighted-date");
+    // ASSERT
+    expect(Number(element.innerHTML)).toBe(date.getDate());
   });
+
+  it("Correct element is highlighted", async () => {
+    const date = new Date();
+    // ARRANGE
+    render(<Calendar date={date} />);
+    // ACT
+    const element = await screen.findByTestId("highlighted-date");
+    // ASSERT
+    expect(Number(element.innerHTML)).toBe(date.getDate());
+  });
+
+  it.each([
+    [null, null],
+    ["", null],
+    ["Hello", null],
+    [1234, null],
+    [new Date("random"), null],
+  ])(
+    "should handle invalid input %s and return %s",
+    async (input, expected) => {
+      // ARRANGE
+      render(<Calendar date={input} />);
+      // ACT
+      const element = await screen.queryByTestId("Calendar");
+      // ASSERT
+      expect(element).toBeNull();
+    },
+  );
 });

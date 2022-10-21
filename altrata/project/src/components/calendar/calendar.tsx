@@ -19,10 +19,10 @@ const CalendarHeader = ({ month, year }: { month: string; year: string }) => {
   );
 };
 
-const CalendarRow = ({ children }: { children: ReactNode }) => {
+const CalendarSection = ({ children }: { children: ReactNode }) => {
   return (
     <div
-      data-testid="CalendarRow"
+      data-testid="CalendarSection"
       className="grid grid-cols-7 gap-1 text-center"
     >
       {children}
@@ -42,6 +42,13 @@ const CalendarCell = forwardRef<
 });
 
 export const Calendar = ({ date }: CalendarProps) => {
+  if (
+    Object.prototype.toString.call(date) !== "[object Date]" ||
+    (typeof date?.valueOf() !== "undefined" && isNaN(date?.valueOf()))
+  ) {
+    return null;
+  }
+
   const { calendar, formattedTitleDate } = useCalendar({ target: date });
 
   const calendarDaysOfWeek = WEEKDAY_NAME.map((name, i) => {
@@ -54,6 +61,9 @@ export const Calendar = ({ date }: CalendarProps) => {
       return (
         <CalendarCell
           key={`${day}${weekIndex}${dayIndex}`}
+          {...(shouldHighlightCell
+            ? { "data-testid": "highlighted-date" }
+            : {})}
           className={clsx({
             "bg-neutral-200 text-[#282c34]": shouldHighlightCell,
           })}
@@ -74,8 +84,8 @@ export const Calendar = ({ date }: CalendarProps) => {
         month={formattedTitleDate?.month}
         year={formattedTitleDate?.year}
       />
-      <CalendarRow>{calendarDaysOfWeek}</CalendarRow>
-      <CalendarRow>{calendarDays}</CalendarRow>
+      <CalendarSection>{calendarDaysOfWeek}</CalendarSection>
+      <CalendarSection>{calendarDays}</CalendarSection>
     </div>
   ) : null;
 };
