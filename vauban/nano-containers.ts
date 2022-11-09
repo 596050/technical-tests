@@ -10,6 +10,7 @@ type Pricing = {
 
 type Investor = {
   amount: number;
+  customFee?: number;
 };
 
 type InvestorWithFee = {
@@ -19,15 +20,11 @@ type InvestorWithFee = {
   amountFeeSubscription: number;
 };
 
-type State = {
-  pricing: Pricing;
-  totalInvestment: number;
-} & InvestorWithFee;
-
 /* ----------------- DATA ----------------- */
 const investors: Investor[] = [
   {
     amount: 3000000,
+    customFee: 200,
   },
   {
     amount: 1111000,
@@ -67,6 +64,11 @@ const pricing: Pricing = {
   },
 };
 
+type State = {
+  pricing: Pricing;
+  totalInvestment: number;
+} & InvestorWithFee;
+
 const initialState: State = {
   pricing,
   totalInvestment: 0,
@@ -76,31 +78,33 @@ const initialState: State = {
   amountFeeSubscription: 0,
 };
 
+const getProportion = (num: number, den: number) => {
+  return +num / +den;
+};
+
 const getTotal = (investors: Investor[]) => {
   return investors.reduce((acc, item) => {
     return acc + +item.amount;
   }, 0);
 };
 
-const getProportion = (amount: number, total: number) => +amount / +total;
-
 const getBasePrice = (
   amount: number,
-  total: number,
+  totalInvestment: number,
   amountBase: Pricing["amountBase"],
 ) => {
-  return getProportion(+amount, +total) * +amountBase;
+  return getProportion(+amount, +totalInvestment) * +amountBase;
 };
 
 const getRaisingFee = (
   amount: number,
-  total: number,
+  totalInvestment: number,
   percentageFeeRaising: Pricing["percentageFeeRaising"],
-  remainederFee: number,
+  remainderFee: number,
 ) => {
   return Math.min(
-    +percentageFeeRaising * +amount,
-    getProportion(+amount, +total) * Math.max(remainederFee, 0),
+    amount * percentageFeeRaising,
+    getProportion(+amount, +totalInvestment) * +remainderFee,
   );
 };
 
@@ -108,7 +112,7 @@ const getSubscriptionFee = (
   amount: number,
   percentageFeeSubscription: Pricing["percentageFeeSubscription"],
 ) => {
-  return +percentageFeeSubscription * +amount;
+  return +amount * percentageFeeSubscription;
 };
 
 /* ----------------- FUNCTION ----------------- */
@@ -117,32 +121,26 @@ function calculateInvestorsFees(
   totalInvestment: number,
 ): InvestorWithFee[] {
   const collectedByVauban = [
-    ({ amount, pricing, totalInvestment }: State): Partial<State> => {
-      return {
-        amountBase: getBasePrice(amount, totalInvestment, pricing.amountBase),
-      };
-    },
-    ({ amount, pricing, totalInvestment }: State): Partial<State> => {
-      return {
-        amountFeeRaising: getRaisingFee(
-          amount,
-          totalInvestment,
-          pricing.percentageFeeRaising,
-          pricing.vauban.maxFee - pricing.amountBase,
-        ),
-      };
-    },
+    ({ amount, totalInvestment, pricing }: State): Partial<State> => ({
+      amountBase: getBasePrice(amount, totalInvestment, pricing.amountBase),
+    }),
+    ({ amount, totalInvestment, pricing }: State): Partial<State> => ({
+      amountFeeRaising: getRaisingFee(
+        amount,
+        totalInvestment,
+        pricing.percentageFeeRaising,
+        Math.max(pricing.vauban.maxFee - pricing.amountBase, 0),
+      ),
+    }),
   ];
 
   const collectedBySponsors = [
-    ({ amount, pricing }: State): Partial<State> => {
-      return {
-        amountFeeSubscription: getSubscriptionFee(
-          amount,
-          pricing.percentageFeeSubscription,
-        ),
-      };
-    },
+    ({ amount, pricing }: State): Partial<State> => ({
+      amountFeeSubscription: getSubscriptionFee(
+        amount,
+        pricing.percentageFeeSubscription,
+      ),
+    }),
   ];
 
   const collectors = collectedByVauban.concat(collectedBySponsors);
@@ -152,11 +150,18 @@ function calculateInvestorsFees(
       collectors.reduce(
         (acc, calc) => {
           const state = { ...acc, amount: investor.amount };
+
           return { ...state, ...calc(state) };
         },
         { ...initialState, totalInvestment },
       );
-    return { amount, amountBase, amountFeeRaising, amountFeeSubscription };
+
+    return {
+      amount,
+      amountBase,
+      amountFeeRaising,
+      amountFeeSubscription,
+    };
   });
 }
 
