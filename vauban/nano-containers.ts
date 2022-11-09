@@ -117,12 +117,12 @@ function calculateInvestorsFees(
   totalInvestment: number,
 ): InvestorWithFee[] {
   const collectedByVauban = [
-    ({ amount, pricing, totalInvestment }: State) => {
+    ({ amount, pricing, totalInvestment }: State): Partial<State> => {
       return {
         amountBase: getBasePrice(amount, totalInvestment, pricing.amountBase),
       };
     },
-    ({ amount, pricing, totalInvestment }: State) => {
+    ({ amount, pricing, totalInvestment }: State): Partial<State> => {
       return {
         amountFeeRaising: getRaisingFee(
           amount,
@@ -132,7 +132,10 @@ function calculateInvestorsFees(
         ),
       };
     },
-    ({ amount, pricing }: State) => {
+  ];
+
+  const collectedBySponsors = [
+    ({ amount, pricing }: State): Partial<State> => {
       return {
         amountFeeSubscription: getSubscriptionFee(
           amount,
@@ -142,27 +145,20 @@ function calculateInvestorsFees(
     },
   ];
 
-  // const collectedBySponsors = [
-  // ]
+  const collectors = collectedByVauban.concat(collectedBySponsors);
 
-  const res = investors.map(investor => {
-    return [collectedByVauban].map(collector => {
-      return collector.reduce(
+  return investors.map(investor => {
+    const { amount, amountBase, amountFeeRaising, amountFeeSubscription } =
+      collectors.reduce(
         (acc, calc) => {
           const state = { ...acc, amount: investor.amount };
-          const newAcc = { ...state, ...calc(state) };
-          return newAcc;
+          return { ...state, ...calc(state) };
         },
         { ...initialState, totalInvestment },
       );
-    });
+    return { amount, amountBase, amountFeeRaising, amountFeeSubscription };
   });
-
-  console.log(res);
-
-  return [];
 }
 
-// console.assert(calculateInvestorsFees(investors, pricing))
 /* ----------------- RUN ----------------- */
 console.log(calculateInvestorsFees(investors, getTotal(investors)));
