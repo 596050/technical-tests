@@ -1,0 +1,63 @@
+##########################################################################################################################################
+# DEV Backend
+##########################################################################################################################################
+
+FROM python:3.11.2-buster  as dev_base_backend
+
+RUN useradd -ms /bin/bash admin
+
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+RUN apt-get update && apt-get install -y netcat xmlsec1 python3-dev libssl-dev libsasl2-dev vim
+
+RUN mkdir /backend
+WORKDIR /backend
+
+RUN chown -R admin:admin /usr
+RUN chmod 755 /usr
+USER admin
+
+COPY backend/requirements /backend/requirements
+
+RUN pip install -r /backend/requirements/dev.txt
+
+COPY setup.test.sh /setup.test.sh
+COPY setup.sh /setup.sh
+
+CMD "python3 TBI/manage.py runserver"
+
+##########################################################################################################################################
+# DEV Frontend
+##########################################################################################################################################
+
+FROM node:18 as dev_base_frontend
+
+#############################
+# ENVIRONMENT VARIABLES START
+#############################
+
+ARG REACT_APP_PORT
+ARG REACT_APP_BASE_API_URL
+
+ENV REACT_APP_PORT=$REACT_APP_PORT
+ENV REACT_APP_BASE_API_URL=$REACT_APP_BASE_API_URL
+
+###########################
+# ENVIRONMENT VARIABLES END
+###########################
+
+RUN apt-get update && apt-get install -y netcat
+
+RUN mkdir /frontend
+WORKDIR /frontend
+
+COPY frontend/package.json ./
+
+RUN yarn
+
+COPY frontend/ /frontend
+
+EXPOSE 3000
+ 
+CMD [ "yarn", "dev" ]

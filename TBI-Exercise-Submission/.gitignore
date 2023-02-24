@@ -1,0 +1,13 @@
+node_modules
+.esbuild
+.DS_Store
+.env*
+!.env.dev.example*
+__pycache__
+package-lock.json
+yarn.lock
+/mysql_data/
+**/*/mysql_data/
+**/*/migrations/*.py
+!**/*/migrations/__init__.py
+**/*/node_modules

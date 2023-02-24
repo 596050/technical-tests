@@ -1,0 +1,47 @@
+version: "3.9"
+
+services:
+  frontend:
+    image: dev-frontend-filter-and-sort
+    container_name: dev-frontend-filter-and-sort
+    build:
+      target: dev_base_frontend
+      dockerfile: Dockerfile.dev
+      context: .
+    command: yarn dev
+    volumes:
+      - ./frontend:/frontend
+      - /frontend/node_modules
+    ports:
+      - 3000:3000
+    env_file:
+      - .env.dev
+    depends_on:
+      - backend
+
+  backend:
+    image: dev-backend-filter-and-sort
+    container_name: dev-backend-filter-and-sort
+    build:
+      target: dev_base_backend
+      context: .
+      dockerfile: Dockerfile.dev
+    command: ${COMMAND}
+    volumes:
+      - ./backend:/backend
+      - ./setup.sh:/setup.sh
+      - ./setup.test.sh:/setup.test.sh
+    ports:
+      - 8080:8080
+    depends_on:
+      - database
+    env_file:
+      - .env.dev
+
+  database:
+    image: mysql:8.0.29
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+    command: --default-authentication-plugin=mysql_native_password
+    env_file:
+      - .env.dev

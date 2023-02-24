@@ -1,0 +1,15 @@
+-r base.txt
+
+django-debug-toolbar==3.2.1
+ipython==7.16.1
+setuptools==61.1.1
+Faker==13.14.0
+
+# testing
+black==21.6b0
+coverage==5.5
+factory-boy==3.2.0
+flake8==3.9.2
+isort==5.9.1
+tox==3.23.1
+pytest-django==4.5.2
