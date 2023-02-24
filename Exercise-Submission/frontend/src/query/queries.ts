@@ -3,7 +3,7 @@ import { getTasks, getUsers, searchTasks } from "@tbi/api";
 import { AxiosResponse } from "axios";
 import { SearchTaskAPIResponse } from "../api/search";
 import { UserAPIResponse } from "../api/user";
-import { TaskAPIResponse } from "./../api/task";
+import { TaskAPIResponse } from "../api/task";
 
 export const useGetAllTasksQuery = (): UseQueryResult<
   AxiosResponse<TaskAPIResponse[]>
